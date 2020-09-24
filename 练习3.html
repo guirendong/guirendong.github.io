@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form>
+  用户名：<input type="text" name="userName" placeholder="请输入用户名" autofocus autocomplete="on"> <br>
+  学院：<input type="text" list="college"> <br>
+  <datalist id="college">
+    <option value="数学" label="有点意思"> </option>
+    <option value="英语" label="可怕"> </option>
+  </datalist>
+  网址：<input type="url" list="urls">
+  <datalist id="urls">
+    <option value="http://www.baidu.com" label="百度"></option>
+  </datalist>
+  密码：<input type="password" name="userPwd"> <br>
+  电话号码：<input type="tel" name="userPhone" id="userPhone" required pattern="^(\+86)?1\d{10}$"> <br>
+  商品数量：<input type="number" value="50" max="100" min="0"> <br>
+  日期：<input type="date"> <br>
+  日期时间：<input type="datetime"> <br>
+  时间：<input type="time"><br>
+  日期时间：<input type="datetime-local"> <br>
+  商品名称：<input type="search" name="name" placeholder="请输入商品名称" autofocus autocomplete="on"> <br>
+  范围：<input type="range" value="50" max="100" min="0"> <br>
+  颜色：<input type="color"> <br>
+  邮箱：<input type="email"> <br>
+  网址：<input type="url"> <br>
+  <input type="submit">
+</form>
+<script>
+  document.getElementById("userPhone").oninvalid=function ()
+  {this.setCustomValidity("请输入合法的11位手机号")}
+</script>
+</body>
+</html>
