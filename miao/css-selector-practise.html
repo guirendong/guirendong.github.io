@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Document</title>
     <style>
-      p{color: red;}
+      /* p{color: red;}
       span>span{color: green;}
       span+span{color: blue;}
       a:link{color: pink;}
@@ -13,26 +13,39 @@
       /* a:visited不会变色 ????*/
       /* a:active{color: blue;}
       a:hover{color: green;} */
-      [href*="mailto" i]{color: blue; !important}
+      /* [href*="mailto" i]{color: blue; !important}
       [href^="tel"]{color: yellow; !important}
       [href$="pdf" i]{font-size: 30px; !important}
       p.a:hover{color: red;}
       p.a:active{color:green;border: 1px green;}
-      p.a:focus{color: blue;}
+      p.a:focus{color: blue;} */
       /* href设置的颜色不会覆盖a:link ????*/
       div.a > ul>li:nth-child(4){color: red;}
       div.a > ul>li:nth-child(5){color: red;}
       div.a > ul>li:nth-child(6){color: red;}
       div.a > ul>li:nth-child(7){color: red;}
-      div.b > ul>li:nth-child(n):nth-child(-n+25){color: red;}
+      div.b > ul>li:nth-child(-n+25){color: red;}
       div.b > ul>li:nth-child(n+65){color: green;}
       div.b > ul>li:nth-child(n+35):nth-child(-n+50){color: blue;}
-      div.prime > ul>li:nth-child(){color: red;}
-      div.prime > ul>li:nth-child(){color: blue;}
 
+      body>p:nth-child(1){color: red;}
+      body>p:nth-child(2).a:focus{color: blue;}
+      body>p:nth-child(2).a:hover{color: red;}
+      body>p:nth-child(2).a:active{color: green;}
+      body>p.a>span{color: red;}
+      span>span:nth-child(1){color: green;}
+      span>span:nth-child(2){color: blue;}
+      p+div>a:visited{color: orange;}
+      p+div>a:link{color:pink;}
+      p+div>a[href^="mailto:" i]{color: blue;}
+      p+div>a[href^="tel:" i]{color: yellow;}
+      p+div>a[href$=".pdf" i]{font-size: 30px;}
 
-    div.prime
-
+      div.prime>ul>li:nth-child(2n+4){color:yellow;}
+      div.prime>ul>li:nth-child(3n+9){color:yellow;}
+      div.prime>ul>li:nth-child(5n+25){color:yellow;}
+      div.prime>ul>li:nth-child(7n+49){color:yellow;}
+      
     </style>
   </head>
   <body>
@@ -204,7 +217,6 @@
 
     <hr>
 
-    </style>
     <div class="prime">
       <p>让所有的质/素数(prime)（2，3，5，7，11，13……）跟合数（4，6，8，9，10……）为不同的颜色</p>
       <ul>
