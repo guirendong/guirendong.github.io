@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{border: 1px solid red;}
+    body>ul{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+      width: 200px;
+    }
+    ul ul{
+      list-style: none;
+      display: none;
+      width: 200px;
+    }
+    li:hover>ul{
+      display: block;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      left: 200px;
+
+    }
+    ul ul ul{
+      position: relative;
+    }
+
+  </style>
+</head>
+<body>
+  <ul>
+    <li>01
+      <ul>
+        <li>01
+          <ul>
+            <li>01
+              <ul>
+                <li>01</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>02
+          <ul>
+            <li>01</li>
+          </ul>
+        </li>
+        <li>03
+          <ul>
+            <li>01</li>
+          </ul>
+        </li>
+        <li>04
+          <ul>
+            <li>01</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>02
+      <ul>
+        <li>01
+          <ul>
+            <li>01</li>
+          </ul>
+        </li>
+        <li>02</li>
+        <li>03</li>
+        <li>04</li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>03
+      <ul>
+        <li>01</li>
+        <li>02</li>
+        <li>03</li>
+        <li>04</li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>04
+      <ul>
+        <li>01</li>
+        <li>02</li>
+        <li>03</li>
+        <li>04</li>
+      </ul>
+    </li>
+  </ul>
+</body>
+</html>

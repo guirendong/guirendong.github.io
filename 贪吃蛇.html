@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .map{
+      width: 800px;
+      height: 600px;
+      background-color: #ccc;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <div class="map"></div>
+  <button style="background-color: black;color: white;" class="pause">暂停</button>
+  <script>
+    // document.getElementById(pause).onclick=clearInterval(tid);
+
+    (function(){
+      function Random(){
+      };
+      Random.prototype.random=function(min,max){
+        return Math.floor(Math.random()*(max-min)+min);
+      };
+      window.rd=new Random();
+    })();
+    // var rd1= new rd;
+    // console.log(rd1.random(10,40));
+    
+
+    (function(){
+      var map=document.querySelector(".map");
+      var elements=[];
+      function Food(width,height,color){
+        this.width=width||20;
+        this.height=height||20;
+        this.color=color||"red";
+        this.element=document.createElement("div");
+        this.x=0;
+        this.y=0;
+        this.food();
+      };
+      Food.prototype.food=function(){
+        remove();
+        var div=this.element;
+        div.style.width=this.width+"px";
+        div.style.height=this.height+"px";
+        div.style.backgroundColor=this.color;
+        div.style.position="absolute";
+        map.appendChild(div);
+        var x=rd.random(0,map.offsetWidth/this.width)*this.width;
+        var y=rd.random(0,map.offsetHeight/this.height)*this.height;
+        this.x=x;
+        this.y=y;
+        div.style.left=this.x+"px";
+        div.style.top=this.y+"px";
+        elements.push(div);
+      };
+
+      function remove(){
+        for(var i=0;i<elements.length;i++){
+          var ele=elements[i];
+          ele.parentNode.removeChild(ele);
+          elements.splice(i,1);
+        }
+      };
+      window.fd=new Food();
+    })();
+    
+
+    (function(){
+      var map=document.querySelector(".map");
+      var elements=[];
+      function Snake(width,height,direction){
+        this.width=width||20;
+        this.height=height||20;
+        this.body=[
+          {x:3,y:2,color:"red"},
+          {x:2,y:2,color:"blue"},
+          {x:1,y:2,color:"blue"}
+        ];
+       this.direction=direction||"right";
+       this.snkBody();
+      };
+      Snake.prototype.snkBody=function(){
+        remove();
+        for(var i=0;i<this.body.length;i++){
+          var obj=this.body[i];
+          var div=document.createElement("div");
+          div.style.width=this.width+"px";
+          div.style.height=this.height+"px";
+          div.style.position="absolute";
+          div.style.left=obj.x * this.width+"px";
+          div.style.top=obj.y * this.height+"px";
+          div.style.backgroundColor=obj.color;
+          map.appendChild(div);
+          elements.push(div);
+        };
+      };
+
+      Snake.prototype.move=function(){
+        for(var i=this.body.length-1;i>0;i--){
+          this.body[i].x=this.body[i-1].x;
+          this.body[i].y=this.body[i-1].y;
+        };
+        switch(this.direction){
+          case "right":this.body[0].x+=1;break;
+          case "left":this.body[0].x-=1;break;
+          case "top":this.body[0].y-=1;break;
+          case "bottom":this.body[0].y+=1;break;
+        }
+        var last=this.body[this.body.length-1];
+        var headX=last.x * this.width;
+        var headY=last.y * this.height;
+        if(headX==fd.x&&headY==fd.y){
+          this.body.push(
+            {
+              x:last.x,
+              y:last.y,
+              color:last.color
+            }
+          );
+        fd.food();
+        };
+      };
+
+      function remove(){
+        for(var i=elements.length-1;i>=0;i--){
+          var ele=elements[i];
+          ele.parentNode.removeChild(ele);
+          elements.splice(i,1);
+        }
+      };
+      
+      window.snk=new Snake();      
+    })();
+  //  var sn=snk;
+  //  setInterval(function(){
+  //    sn.move();
+  //    sn.snkBody();
+  //  },250);
+  (function(){
+    var that=null;
+    var map=document.querySelector(".map");
+    function Game(){
+      this.food=fd;
+      this.snake=snk;
+      this.map=map;
+      that=this;
+      this.init();
+    };
+    Game.prototype.init=function(){
+      this.food.food();
+      this.snake.snkBody();
+      this.running();
+    };
+    
+    Game.prototype.running=function(){
+     var timeId=setInterval(function(){
+        this.snake.move();
+        this.snake.snkBody();
+        var maxX=this.map.offsetWidth/this.snake.width;
+        var maxY=this.map.offsetHeight/this.snake.height;
+        var headX=this.snake.body[0].x;
+        var headY=this.snake.body[0].y;
+        if(headX<0||headX>=40){
+          clearInterval(timeId);
+          alert("gameover!!!");
+        };
+        if(headY<0||headY>=30){
+          clearInterval(timeId);
+          alert("gameover!!!");
+        };
+      }.bind(that),250);
+      this.getClickCode();
+      window.tid=timeId;
+    };
+
+    Game.prototype.getClickCode=function(){
+      console.log("gg");
+      document.addEventListener("keydown",function(e){
+        switch(e.keyCode){
+          case 37:this.snake.direction="left";break;
+          case 38:this.snake.direction="top";break;
+          case 39:this.snake.direction="right";break;
+          case 40:this.snake.direction="bottom";break;
+          case 65:this.snake.direction="left";break;
+          case 87:this.snake.direction="top";break;
+          case 68:this.snake.direction="right";break;
+          case 83:this.snake.direction="bottom";break;
+        };
+      }.bind(that),false)
+    };
+    window.game=new Game();
+  })();
+    
+    // document.onkeydown=function(e){
+    //   console.log(e.keyCode);
+    // };
+  </script>
+</body>
+</html>
