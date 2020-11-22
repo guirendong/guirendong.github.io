@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h1{
+      text-align: center;
+      color: orange;
+    }
+    h1+div{
+      margin: auto;
+      width: 600px;
+      height: 40px;
+      display: flex;
+      /* border: 1px solid red; */
+      justify-content: space-around;
+    }
+    div>div{
+      display: inline-block;
+      width: 100px;
+      height: 100%;
+      border-radius: 5px;
+      color: white;
+      background-color: skyblue;
+      font-size: 32px;
+      text-align: center;
+    }
+    #aab{
+      color: skyblue;
+      background-color: white;
+      width: 200px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h1>距离杨升升同志退休还有</h1> -->
+  <h1><font color="#00FFFF">距</font><font color="#17E8FF">离</font><font color="#2ED1FF">杨</font><font color="#45BAFF">升</font><font color="#5CA3FF">升</font><font color="#738CFF">同</font><font color="#8A75FF">志</font><font color="#A15EFF">退</font><font color="#B847FF">休</font><font color="#CF30FF">还</font><font color="#E619FF">有</font></h1>
+  <div>
+    <div id="aab"><span><span id="days"></span>&nbsp;天</span></div>
+    <div><span><span id="hours"></span>&nbsp;时</span></div>
+    <div><span><span id="minutes"></span>&nbsp;分</span></div>
+    <div><span><span id="seconds"></span>&nbsp;秒</span></div>
+  </div>
+<script>
+  var days=document.getElementById("days");
+  var hours=document.getElementById("hours");
+  var minutes=document.getElementById("minutes");
+  var seconds=document.getElementById("seconds");
+  function timeDifference(start,end){
+    var interval=end - start;
+    interval /=1000;
+    var day,hour,minute,second;
+    day=Math.floor(interval/60/60/24);
+    hour=Math.floor(interval/60/60%24);
+    minute=Math.floor(interval/60%60);
+    second=Math.floor(interval%60);
+
+    return {
+      day:day,
+      hour:hour,
+      minute:minute,
+      second:second
+    }
+  }
+
+  setInterval(countDown,1000);
+  function countDown(){
+    // var end=new Date("2020-12-25");
+    var end=new Date("2049-02-23");
+    var start=new Date();
+    var obj=timeDifference(start,end);
+    days.innerText=obj.day;
+    hours.innerText=obj.hour;
+    minutes.innerText=obj.minute;
+    seconds.innerText=obj.second;
+  }
+  countDown();
+
+</script>
+</body>
+</html>
