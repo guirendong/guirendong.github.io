@@ -86,17 +86,28 @@ var guirendong={
     }
     return result;
   },
+  differenceBy:function(){
+
+  },
   slice:function(ary,start,end){
     var start=(start==undefined?0:start);
     var end=(end==undefined?ary.length-1:end);
-    var result=[];
-    if(start<0){
-      start=ary.length-Math.abs(start);
+    if(ary instanceof Array){
+      var result=[];
+      if(start<0){
+        start=ary.length-Math.abs(start);
+      }
+      for(var i=start;i<=end;i++){
+        result.push(ary[i]);
+      }
+      return result;
+    }else if(typeof(ary)=="string"){
+      var str="";
+      for( i=start;i<=end;i++){
+        str+=ary[i];
+      }
+      return str;
     }
-    for(var i=start;i<=end;i++){
-      result.push(ary[i]);
-    }
-    return result;
   },
   drop:function(ary,n){
     var n=n==undefined?1:n;
@@ -110,5 +121,79 @@ var guirendong={
   },
   dropRightWhile:function(ary,){
 
-  }
+  },
+  join:function(ary,symbol){
+    var str="";
+    for(var i=0;i<ary.length-1;i++){
+      str=str + ary[i] + symbol;
+    }
+    return (str + ary[ary.length-1]);
+  },
+  last:function(ary){
+    var ele=ary[ary.length-1];
+    return ele;
+  },
+  lastIndexOf:function(ary,char,start){
+    var start=(start==undefined?ary.length-1:start);
+    for(var i=start;i>=0;i--){
+      var temp=ary[i];
+      if(temp==char){
+        return i;
+      }
+    }
+  },
+  fill:function(ary,char,start,end){
+    var start=(start==undefined?0:start);
+    var end=(end==undefined?ary.length:end);
+    for(var i=start;i<end;i++){
+      ary[i]=char;
+    }
+    return ary;
+  },
+  findIndex:function(ary,obj){
+    if(obj==null){
+      return -1;
+    }
+    if(typeof(obj)=="string"){
+      for(var i=0;i<ary.length;i++){
+        if(obj in ary[i]){
+          return i;
+        }
+      }
+    }
+    if(obj instanceof Array){
+      for(var i=0;i<ary.length;i++){
+        if(ary[i][obj[0]]&&ary[i][obj[0]]==obj[1]){
+          return i;
+        }
+      }
+    }
+    if(obj instanceof Function){
+      for(var i=0;i<ary.length;i++){
+        if(obj(ary[i])){
+          return i;
+        }
+      }
+    }
+    if(obj instanceof Object){
+      for(var i=0;i<ary.length;i++){
+        if(ary[i] in obj){
+          return i;
+        }
+      }
+    }
+  },
+  flatten:function (ary) {
+    var result=[];
+    for(var i=0;i<ary.length;i++){
+      if(ary[i] instanceof Array){
+        for(var j=0;j<ary[i].length;j++){
+          result.push(ary[i][j]);
+        }
+      }else{
+        result.push(ary[i]);
+      }
+    }
+    return result;
+  },
 }
